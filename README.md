@@ -1,6 +1,7 @@
 # Low-rank Adaptation for Fast Text-to-Image Diffusion Fine-tuning
-# support AutomaticWebUi
-  I have add some code to support the Automatic111 WebUI. What you should do is just runing 'train_lora_dreambooth.py', then you will find that there is another lora_weight_webui.safetensors in the output dir. That is the right weight for WebUI.
+## support AutomaticWebUi
+  
+  I have added some code to support the Automatic111 WebUI. What you should do is just runing 'train_lora_dreambooth.py', then you will find that there is another lora_weight_webui.safetensors in the output dir. That is the right weight for WebUI.
 
 <!-- #region -->
 <p align="center">
@@ -52,6 +53,8 @@
 - Easy [colab running example](https://colab.research.google.com/drive/1iSFDpRBKEWr2HLlz243rbym3J2X95kcy?usp=sharing) of Dreambooth by @pedrogengo
 
 # UPDATES & Notes
+### 2023/03/14 by bojohn(tbq)
+- Add some code to support the Automatic111 WebUI. What you should do is just runing 'train_lora_dreambooth.py', then you will find that there is another lora_weight_webui.safetensors in the output dir. That is the right weight for WebUI.
 
 ### 2023/02/06
 
