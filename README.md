@@ -1,4 +1,6 @@
 # Low-rank Adaptation for Fast Text-to-Image Diffusion Fine-tuning
+# support AutomaticWebUi
+  I have add some code to support the Automatic111 WebUI. What you should do is just runing 'train_lora_dreambooth.py', then you will find that there is another lora_weight_webui.safetensors in the output dir. That is the right weight for WebUI.
 
 <!-- #region -->
 <p align="center">
