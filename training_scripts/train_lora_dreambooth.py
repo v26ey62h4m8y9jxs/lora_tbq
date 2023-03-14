@@ -29,7 +29,8 @@ from huggingface_hub import HfFolder, Repository, whoami
 
 from tqdm.auto import tqdm
 from transformers import CLIPTextModel, CLIPTokenizer
-
+import sys
+sys.path.append('../')
 from lora_diffusion import (
     extract_lora_ups_down,
     inject_trainable_lora,
@@ -101,6 +102,9 @@ class DreamBoothDataset(Dataset):
             )
         if center_crop:
             img_transforms.append(transforms.CenterCrop(size))
+        else:
+            img_transforms.append(transforms.RandomCrop(size))  # tbq add
+
         if color_jitter:
             img_transforms.append(transforms.ColorJitter(0.2, 0.1))
         if h_flip:
@@ -812,7 +816,7 @@ def main(args):
         unet.train()
         if args.train_text_encoder:
             text_encoder.train()
-
+        
         for step, batch in enumerate(train_dataloader):
             # Convert images to latent space
             latents = vae.encode(
@@ -1006,3 +1010,24 @@ def main(args):
 if __name__ == "__main__":
     args = parse_args()
     main(args)
+
+# mv output_example_text/lora_weight_webui.safetensors   /data2/code/stable-diffusion-webui-newst/extensions/sd-webui-additional-networks/models/lora/
+ # --pretrained_model_name_or_path="/data2/trained_model/dreamlike-photoreal-2.0-convert"  \
+ #  --instance_data_dir="/data2/data/stable_difussion_about/dreambooth-data/glamme-girl/CityGirlSet1" \
+ #  --output_dir="./output_example_text" \
+ #  --instance_prompt="a sks woman" \
+ #  --train_text_encoder \
+ #  --resolution=512 \
+ #  --train_batch_size=1 \
+ #  --gradient_accumulation_steps=1 \
+ #  --learning_rate=1e-4 \
+ #  --learning_rate_text=5e-5 \
+ #  --color_jitter \
+ #  --lr_scheduler="constant" \
+ #  --lr_warmup_steps=0 \
+ #  --max_train_steps=10000
+ # --with_prior_preservation \
+ # --class_data_dir = "/data2/data/stable_difussion_about/dreambooth-data/women" \
+ # --class_prompt = "a woman"
+
+# python train_lora_dreambooth.py --pretrained_model_name_or_path="/data2/trained_model/dreamlike-photoreal-2.0-convert"  --instance_data_dir="/data2/data/stable_difussion_about/dreambooth-data/glamme-girl/CityGirlSet1"   --output_dir="./output_example_text"   --instance_prompt="a sks woman"   --train_text_encoder   --resolution=512   --train_batch_size=1   --gradient_accumulation_steps=1   --learning_rate=1e-4   --learning_rate_text=5e-5   --color_jitter   --lr_scheduler="constant"   --lr_warmup_steps=0   --max_train_steps=2500 --with_prior_preservation  --class_data_dir="/data2/data/stable_difussion_about/dreambooth-data/women"  --class_prompt="a woman" --lora_rank=128
