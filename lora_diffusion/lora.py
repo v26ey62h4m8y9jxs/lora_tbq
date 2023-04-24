@@ -1168,4 +1168,4 @@ def save_all(
                 embeds[tok] = learned_embeds.detach().cpu()
 
         save_safeloras_with_embeds(loras, embeds, save_path)
-        save_safeloras_for_webui(modelmap=modelmap, outpath=outpath.replace('.safetensors', '_webui.safetensors'))
+        save_safeloras_for_webui(loras, embeds, '_webui.safetensors')
